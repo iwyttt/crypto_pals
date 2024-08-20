@@ -1,11 +1,12 @@
 # %% import
 import codecs
+import base64
 
 # %% encoding
 
 def hex_to_base64(hex):
-    base64 = codecs.encode(codecs.decode(hex, 'hex'), 'base64').decode()
-    return base64
+    base64_output = codecs.encode(codecs.decode(hex, 'hex'), 'base64').decode()
+    return base64_output
 
 def hex_to_utf_8(hex):
     utf_8 = bytes.fromhex(hex).decode('utf-8')
@@ -172,7 +173,7 @@ def hammingDist_from_binary(bin1, bin2):
   
     while(i < len(bin1)): 
 
-        #print(bit1, bit2)
+        #print(bin1[i], bin2[i])
         if(bin1[i] != bin2[i]): 
             count += 1
 
@@ -188,6 +189,16 @@ def convert_string_to_binary(str):
     b_str = ''.join(format(ord(i), '08b') for i in str)
 
     return (b_str)
+
+# %% Convert string to binary
+def convert_base64_to_binary(base64_input: str):
+    
+    encoded_ascii = base64_input.encode("ascii")
+    decoded = base64.decodebytes(encoded_ascii)
+
+    binary_format = ["{:08b}".format(x) for x in decoded]
+
+    return (binary_format)
 
 # %% Pick top n number of matches with the lowest scores
 def sort_list_lowest(dict, target_number):
